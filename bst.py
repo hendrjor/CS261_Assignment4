@@ -207,6 +207,8 @@ class BST:
     def pre_order_traversal(self) -> Queue:
         """Traverses the binary tree in pre-order"""
         values_left = Queue()
+        if self.root is None:
+            return values_left
         values_left.enqueue(self.root)
         order_left = self.pre_order_traversal_helper(self.root.left, values_left)
         values_right = Queue()
@@ -236,6 +238,8 @@ class BST:
     def in_order_traversal(self) -> Queue:
         """Traverses the binary tree in order"""
         values = Queue()
+        if self.root is None:
+            return values
         order = self.in_order_traversal_helper(self.root, values)
         return order
 
