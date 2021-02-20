@@ -161,6 +161,8 @@ class BST:
 
     def get_first(self) -> object:
         """Returns the first value stored at the root node"""
+        if self.root is None:
+            return None
         return self.root
 
     def remove_first(self) -> bool:
