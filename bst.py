@@ -210,9 +210,13 @@ class BST:
         if self.root is None:
             return values_left
         values_left.enqueue(self.root)
-        order_left = self.pre_order_traversal_helper(self.root.left, values_left)
+        order_left = Queue()
+        if self.root.left is not None:
+            order_left = self.pre_order_traversal_helper(self.root.left, values_left)
         values_right = Queue()
-        order_right = self.pre_order_traversal_helper(self.root.right, values_right)
+        order_right = Queue()
+        if self.root.right is not None:
+            order_right = self.pre_order_traversal_helper(self.root.right, values_right)
         while order_right.is_empty() is False:
             temp = order_right.dequeue()
             order_left.enqueue(temp)
