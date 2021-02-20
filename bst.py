@@ -206,21 +206,18 @@ class BST:
 
     def pre_order_traversal(self) -> Queue:
         """Traverses the binary tree in pre-order"""
-        values_left = Queue()
+        values = Queue()
         if self.root is None:
-            return values_left
-        values_left.enqueue(self.root)
-        order_left = Queue()
+            return values
+        values.enqueue(self.root)
+        order = values
         if self.root.left is not None:
-            order_left = self.pre_order_traversal_helper(self.root.left, values_left)
-        values_right = Queue()
-        order_right = Queue()
+            order = self.pre_order_traversal_helper(self.root.left, values)
+
         if self.root.right is not None:
-            order_right = self.pre_order_traversal_helper(self.root.right, values_right)
-        while order_right.is_empty() is False:
-            temp = order_right.dequeue()
-            order_left.enqueue(temp)
-        return order_left
+            order = self.pre_order_traversal_helper(self.root.right, values)
+
+        return order
 
     def pre_order_traversal_helper(self, node, values):
         """Helps traverse the binary tree recursively"""
@@ -237,6 +234,7 @@ class BST:
 
         if node.left is None and node.right is None:
             values.enqueue(node.value)
+            # print("k")
         return values
 
     def in_order_traversal(self) -> Queue:
@@ -440,7 +438,7 @@ if __name__ == '__main__':
     print(tree.in_order_traversal())
     # print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
-
+    #
     # """ Comprehensive example 1 """
     # print("\nComprehensive example 1")
     # print("-----------------------")
