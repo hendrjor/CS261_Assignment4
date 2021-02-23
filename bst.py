@@ -395,10 +395,29 @@ class BST:
 
 
     def count_leaves(self) -> int:
-        """
-        TODO: Write this implementation
-        """
-        return 0
+        """Counts the number of leaves in the binary tree"""
+        if self.root is None:
+            return 0
+        leaves = Queue()
+        leaves = self.count_leaves_helper(self.root, leaves)
+        count = 0
+        while leaves.is_empty() is False:
+            leaves.dequeue()
+            count += 1
+        return count
+
+    def count_leaves_helper(self, node, leaves):
+        """Recursively goes through the binary tree"""
+        if node.left is not None:
+            self.count_leaves_helper(node.left, leaves)
+
+        if node.right is not None:
+            self.count_leaves_helper(node.right, leaves)
+
+        if node.left is None and node.right is None:
+            leaves.enqueue(node)
+
+        return leaves
 
     def count_unique(self) -> int:
         """
@@ -453,16 +472,16 @@ if __name__ == '__main__':
     # tree = BST()
     # print(tree.contains(0))
 
-    """ get_first() example 1 """
-    print("\nPDF - method get_first() example 1")
-    print("----------------------------------")
-    tree = BST()
-    print(tree.get_first())
-    tree.add(10)
-    tree.add(15)
-    tree.add(5)
-    print(tree.get_first())
-    print(tree)
+    # """ get_first() example 1 """
+    # print("\nPDF - method get_first() example 1")
+    # print("----------------------------------")
+    # tree = BST()
+    # print(tree.get_first())
+    # tree.add(10)
+    # tree.add(15)
+    # tree.add(5)
+    # print(tree.get_first())
+    # print(tree)
 
     # """ remove() example 1 """
     # print("\nPDF - method remove() example 1")
@@ -535,32 +554,32 @@ if __name__ == '__main__':
     # print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
 
-    # """ Comprehensive example 1 """
-    # print("\nComprehensive example 1")
-    # print("-----------------------")
-    # tree = BST()
-    # header = 'Value   Size  Height   Leaves   Unique   '
-    # header += 'Complete?  Full?    Perfect?'
-    # print(header)
-    # print('-' * len(header))
-    # print(f'  N/A {tree.size():6} {tree.height():7} ',
-    #       f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-    #       f'{str(tree.is_complete()):10}',
-    #       f'{str(tree.is_full()):7} ',
-    #       f'{str(tree.is_perfect())}')
-    #
-    # for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
-    #     tree.add(value)
-    #     print(f'{value:5} {tree.size():6} {tree.height():7} ',
-    #           f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-    #           f'{str(tree.is_complete()):10}',
-    #           f'{str(tree.is_full()):7} ',
-    #           f'{str(tree.is_perfect())}')
-    # print()
-    # print(tree.pre_order_traversal())
-    # print(tree.in_order_traversal())
-    # print(tree.post_order_traversal())
-    # print(tree.by_level_traversal())
+    """ Comprehensive example 1 """
+    print("\nComprehensive example 1")
+    print("-----------------------")
+    tree = BST()
+    header = 'Value   Size  Height   Leaves   Unique   '
+    header += 'Complete?  Full?    Perfect?'
+    print(header)
+    print('-' * len(header))
+    print(f'  N/A {tree.size():6} {tree.height():7} ',
+          f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+          f'{str(tree.is_complete()):10}',
+          f'{str(tree.is_full()):7} ',
+          f'{str(tree.is_perfect())}')
+
+    for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
+        tree.add(value)
+        print(f'{value:5} {tree.size():6} {tree.height():7} ',
+              f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+              f'{str(tree.is_complete()):10}',
+              f'{str(tree.is_full()):7} ',
+              f'{str(tree.is_perfect())}')
+    print()
+    print(tree.pre_order_traversal())
+    print(tree.in_order_traversal())
+    print(tree.post_order_traversal())
+    print(tree.by_level_traversal())
 
     # """ Comprehensive example 2 """
     # print("\nComprehensive example 2")
