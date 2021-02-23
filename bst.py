@@ -340,6 +340,7 @@ class BST:
             if node.left is not None:
                 temp_values.enqueue(node.left)
                 count += 1
+
             if node.right is not None:
                 temp_values.enqueue(node.right)
                 count += 1
@@ -347,10 +348,51 @@ class BST:
         return count
 
     def height(self) -> int:
-        """
-        TODO: Write this implementation
-        """
-        return -1
+        """Determines the height of the binary tree"""
+        if self.root is None:
+            return -1
+
+        left_height = 0
+        right_height = 0
+
+        if self.root.left is not None:
+            left_height += 1
+            left_height = self.height_helper(self.root.left, left_height)
+
+        if self.root.right is not None:
+            right_height += 1
+            right_height = self.height_helper(self.root.right, right_height)
+
+        if left_height >= right_height:
+            return left_height
+        else:
+            return right_height
+
+    def height_helper(self, node, height):
+        """Recursively goes through the binary tree to determine height"""
+        # height_added = False
+        # if node.left is not None:
+        #     self.height_helper(node.left, height)
+        #     height += 1
+        #     height_added = True
+        #
+        # if node.right is not None:
+        #     if height_added is False:
+        #         height += 1
+        #     self.height_helper(node.right, height)
+
+        # if node is None:
+        #     height -= 1
+        #     return height
+        # if node.left is not None:
+        #     height += 1
+        #     height = self.height_helper(node.left, height)
+        # if node.right is not None:
+        #     height += 1
+        #     height = self.height_helper(node.left, height)
+
+        return height
+
 
     def count_leaves(self) -> int:
         """
@@ -411,16 +453,16 @@ if __name__ == '__main__':
     # tree = BST()
     # print(tree.contains(0))
 
-    # """ get_first() example 1 """
-    # print("\nPDF - method get_first() example 1")
-    # print("----------------------------------")
-    # tree = BST()
-    # print(tree.get_first())
-    # tree.add(10)
-    # tree.add(15)
-    # tree.add(5)
-    # print(tree.get_first())
-    # print(tree)
+    """ get_first() example 1 """
+    print("\nPDF - method get_first() example 1")
+    print("----------------------------------")
+    tree = BST()
+    print(tree.get_first())
+    tree.add(10)
+    tree.add(15)
+    tree.add(5)
+    print(tree.get_first())
+    print(tree)
 
     # """ remove() example 1 """
     # print("\nPDF - method remove() example 1")
@@ -493,32 +535,32 @@ if __name__ == '__main__':
     # print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
 
-    """ Comprehensive example 1 """
-    print("\nComprehensive example 1")
-    print("-----------------------")
-    tree = BST()
-    header = 'Value   Size  Height   Leaves   Unique   '
-    header += 'Complete?  Full?    Perfect?'
-    print(header)
-    print('-' * len(header))
-    print(f'  N/A {tree.size():6} {tree.height():7} ',
-          f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-          f'{str(tree.is_complete()):10}',
-          f'{str(tree.is_full()):7} ',
-          f'{str(tree.is_perfect())}')
-
-    for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
-        tree.add(value)
-        print(f'{value:5} {tree.size():6} {tree.height():7} ',
-              f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-              f'{str(tree.is_complete()):10}',
-              f'{str(tree.is_full()):7} ',
-              f'{str(tree.is_perfect())}')
-    print()
-    print(tree.pre_order_traversal())
-    print(tree.in_order_traversal())
-    print(tree.post_order_traversal())
-    print(tree.by_level_traversal())
+    # """ Comprehensive example 1 """
+    # print("\nComprehensive example 1")
+    # print("-----------------------")
+    # tree = BST()
+    # header = 'Value   Size  Height   Leaves   Unique   '
+    # header += 'Complete?  Full?    Perfect?'
+    # print(header)
+    # print('-' * len(header))
+    # print(f'  N/A {tree.size():6} {tree.height():7} ',
+    #       f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+    #       f'{str(tree.is_complete()):10}',
+    #       f'{str(tree.is_full()):7} ',
+    #       f'{str(tree.is_perfect())}')
+    #
+    # for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
+    #     tree.add(value)
+    #     print(f'{value:5} {tree.size():6} {tree.height():7} ',
+    #           f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+    #           f'{str(tree.is_complete()):10}',
+    #           f'{str(tree.is_full()):7} ',
+    #           f'{str(tree.is_perfect())}')
+    # print()
+    # print(tree.pre_order_traversal())
+    # print(tree.in_order_traversal())
+    # print(tree.post_order_traversal())
+    # print(tree.by_level_traversal())
 
     # """ Comprehensive example 2 """
     # print("\nComprehensive example 2")
