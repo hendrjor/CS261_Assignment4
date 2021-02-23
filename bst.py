@@ -166,7 +166,7 @@ class BST:
         """Returns the first value stored at the root node"""
         if self.root is None:
             return None
-        return self.root
+        return self.root.value
 
     def remove_first(self) -> bool:
         """Removes the root node from the tree"""
