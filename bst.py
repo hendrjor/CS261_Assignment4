@@ -283,10 +283,28 @@ class BST:
         return values
 
     def by_level_traversal(self) -> Queue:
-        """
-        TODO: Write this implementation
-        """
-        return Queue()
+        """Traverses and returns values in highest level first"""
+        values = Queue()
+        temp_values = Queue()
+        if self.root is None:
+            return values
+
+        node = self.root
+        values.enqueue(node)
+        temp_values.enqueue(node)  # creates temp list so the program can access past nodes
+
+        while temp_values.is_empty() is False:
+
+            node = temp_values.dequeue()
+
+            if node.left is not None:
+                values.enqueue(node.left)
+                temp_values.enqueue(node.left)
+            if node.right is not None:
+                values.enqueue(node.right)
+                temp_values.enqueue(node.right)
+
+        return values
 
     def is_full(self) -> bool:
         """
@@ -448,7 +466,7 @@ if __name__ == '__main__':
     print(tree.pre_order_traversal())
     print(tree.in_order_traversal())
     print(tree.post_order_traversal())
-    # print(tree.by_level_traversal())
+    print(tree.by_level_traversal())
 
     """ Traversal methods example 2 """
     print("\nPDF - traversal methods example 2")
@@ -457,7 +475,7 @@ if __name__ == '__main__':
     print(tree.pre_order_traversal())
     print(tree.in_order_traversal())
     print(tree.post_order_traversal())
-    # print(tree.by_level_traversal())
+    print(tree.by_level_traversal())
     #
     # """ Comprehensive example 1 """
     # print("\nComprehensive example 1")
