@@ -325,10 +325,26 @@ class BST:
         return True
 
     def size(self) -> int:
-        """
-        TODO: Write this implementation
-        """
-        return 0
+        """Returns the total number of nodes in the tree"""
+        temp_values = Queue()
+        if self.root is None:
+            return 0
+
+        count = 1
+        node = self.root
+        temp_values.enqueue(node)  # creates temp list so the program can access past nodes
+
+        while temp_values.is_empty() is False:
+            node = temp_values.dequeue()
+
+            if node.left is not None:
+                temp_values.enqueue(node.left)
+                count += 1
+            if node.right is not None:
+                temp_values.enqueue(node.right)
+                count += 1
+
+        return count
 
     def height(self) -> int:
         """
@@ -459,51 +475,51 @@ if __name__ == '__main__':
     # print(tree.remove_first(), tree)
     # print(tree.remove_first(), tree)
 
-    """ Traversal methods example 1 """
-    print("\nPDF - traversal methods example 1")
-    print("---------------------------------")
-    tree = BST([10, 20, 5, 15, 17, 7, 12])
+    # """ Traversal methods example 1 """
+    # print("\nPDF - traversal methods example 1")
+    # print("---------------------------------")
+    # tree = BST([10, 20, 5, 15, 17, 7, 12])
+    # print(tree.pre_order_traversal())
+    # print(tree.in_order_traversal())
+    # print(tree.post_order_traversal())
+    # print(tree.by_level_traversal())
+
+    # """ Traversal methods example 2 """
+    # print("\nPDF - traversal methods example 2")
+    # print("---------------------------------")
+    # tree = BST([10, 10, -1, 5, -1])
+    # print(tree.pre_order_traversal())
+    # print(tree.in_order_traversal())
+    # print(tree.post_order_traversal())
+    # print(tree.by_level_traversal())
+
+    """ Comprehensive example 1 """
+    print("\nComprehensive example 1")
+    print("-----------------------")
+    tree = BST()
+    header = 'Value   Size  Height   Leaves   Unique   '
+    header += 'Complete?  Full?    Perfect?'
+    print(header)
+    print('-' * len(header))
+    print(f'  N/A {tree.size():6} {tree.height():7} ',
+          f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+          f'{str(tree.is_complete()):10}',
+          f'{str(tree.is_full()):7} ',
+          f'{str(tree.is_perfect())}')
+
+    for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
+        tree.add(value)
+        print(f'{value:5} {tree.size():6} {tree.height():7} ',
+              f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+              f'{str(tree.is_complete()):10}',
+              f'{str(tree.is_full()):7} ',
+              f'{str(tree.is_perfect())}')
+    print()
     print(tree.pre_order_traversal())
     print(tree.in_order_traversal())
     print(tree.post_order_traversal())
     print(tree.by_level_traversal())
 
-    """ Traversal methods example 2 """
-    print("\nPDF - traversal methods example 2")
-    print("---------------------------------")
-    tree = BST([10, 10, -1, 5, -1])
-    print(tree.pre_order_traversal())
-    print(tree.in_order_traversal())
-    print(tree.post_order_traversal())
-    print(tree.by_level_traversal())
-    #
-    # """ Comprehensive example 1 """
-    # print("\nComprehensive example 1")
-    # print("-----------------------")
-    # tree = BST()
-    # header = 'Value   Size  Height   Leaves   Unique   '
-    # header += 'Complete?  Full?    Perfect?'
-    # print(header)
-    # print('-' * len(header))
-    # print(f'  N/A {tree.size():6} {tree.height():7} ',
-    #       f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-    #       f'{str(tree.is_complete()):10}',
-    #       f'{str(tree.is_full()):7} ',
-    #       f'{str(tree.is_perfect())}')
-    #
-    # for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
-    #     tree.add(value)
-    #     print(f'{value:5} {tree.size():6} {tree.height():7} ',
-    #           f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-    #           f'{str(tree.is_complete()):10}',
-    #           f'{str(tree.is_full()):7} ',
-    #           f'{str(tree.is_perfect())}')
-    # print()
-    # print(tree.pre_order_traversal())
-    # print(tree.in_order_traversal())
-    # print(tree.post_order_traversal())
-    # print(tree.by_level_traversal())
-    #
     # """ Comprehensive example 2 """
     # print("\nComprehensive example 2")
     # print("-----------------------")
