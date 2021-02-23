@@ -210,14 +210,14 @@ class BST:
         if self.root is None:
             return values
         values.enqueue(self.root)
-        order = values
+
         if self.root.left is not None:
-            order = self.pre_order_traversal_helper(self.root.left, values)
+            values = self.pre_order_traversal_helper(self.root.left, values)
 
         if self.root.right is not None:
-            order = self.pre_order_traversal_helper(self.root.right, values)
+            values = self.pre_order_traversal_helper(self.root.right, values)
 
-        return order
+        return values
 
     def pre_order_traversal_helper(self, node, values):
         """Helps traverse the binary tree recursively"""
@@ -234,7 +234,7 @@ class BST:
 
         if node.left is None and node.right is None:
             values.enqueue(node.value)
-            # print("k")
+
         return values
 
     def in_order_traversal(self) -> Queue:
@@ -257,10 +257,30 @@ class BST:
         return values
 
     def post_order_traversal(self) -> Queue:
-        """
-        TODO: Write this implementation
-        """
-        return Queue()
+        """Traverses and returns values in post-order"""
+        values = Queue()
+        if self.root is None:
+            return values
+
+        if self.root.left is not None:
+            values = self.post_order_traversal_helper(self.root.left, values)
+
+        if self.root.right is not None:
+            values = self.post_order_traversal_helper(self.root.right, values)
+        values.enqueue(self.root)
+
+        return values
+
+    def post_order_traversal_helper(self, node, values):
+        """Helps traverse the binary tree recursively"""
+        if node.left is not None:
+            self.post_order_traversal_helper(node.left, values)
+
+        if node.right is not None:
+            self.post_order_traversal_helper(node.right, values)
+
+        values.enqueue(node.value)
+        return values
 
     def by_level_traversal(self) -> Queue:
         """
@@ -427,7 +447,7 @@ if __name__ == '__main__':
     tree = BST([10, 20, 5, 15, 17, 7, 12])
     print(tree.pre_order_traversal())
     print(tree.in_order_traversal())
-    # print(tree.post_order_traversal())
+    print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
 
     """ Traversal methods example 2 """
@@ -436,7 +456,7 @@ if __name__ == '__main__':
     tree = BST([10, 10, -1, 5, -1])
     print(tree.pre_order_traversal())
     print(tree.in_order_traversal())
-    # print(tree.post_order_traversal())
+    print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
     #
     # """ Comprehensive example 1 """
