@@ -308,8 +308,6 @@ class BST:
 
     def is_full(self) -> bool:
         """Determines if the binary tree is full"""
-        # if self.root is None:
-        #     return True
         return self.is_full_helper(self.root)
 
     def is_full_helper(self, node):
@@ -320,6 +318,7 @@ class BST:
         if node.left is None and node.right is None:
             return True
 
+        # Both the left and right trees must have full leaves
         if node.left is not None and node.right is not None:
             return (self.is_full_helper(node.left) and self.is_full_helper(node.right))
 
@@ -327,9 +326,6 @@ class BST:
 
     def is_complete(self) -> bool:
         """Determines if the binary tree is complete"""
-        # if self.root is None:
-        #     return True
-
         order = self.in_order_traversal()
         count = 0
 
@@ -352,10 +348,28 @@ class BST:
                 )
 
     def is_perfect(self) -> bool:
-        """
-        TODO: Write this implementation
-        """
-        return True
+        """Determines if the tree is perfect"""
+        depth = 0
+        node = self.root
+        while node is not None:
+            depth += 1
+            node = node.left
+        node = self.root
+
+        return self.is_perfect_helper(node, depth, 0)
+
+    def is_perfect_helper(self, node, depth, level):
+        """Recursively goes through the binary tree to determine if the tree is perfect"""
+        if node is None:
+            return True
+
+        if node.left is None and node.right is None:
+            return depth == level + 1
+
+        if node.left is None or node.right is None:
+            return False
+
+        return self.is_perfect_helper(node.left, depth, level + 1) and self.is_perfect_helper(node.right, depth, level + 1)
 
     def size(self) -> int:
         """Returns the total number of nodes in the tree"""
