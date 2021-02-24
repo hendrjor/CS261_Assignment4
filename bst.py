@@ -1,5 +1,5 @@
 # Course: CS261 - Data Structures
-# Student Name:
+# Student Name: Jordan Hendricks
 # Assignment:
 # Description:
 
