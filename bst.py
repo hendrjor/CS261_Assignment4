@@ -307,15 +307,28 @@ class BST:
         return values
 
     def is_full(self) -> bool:
-        """
-        TODO: Write this implementation
-        """
-        return True
+        """Determines if the binary tree is full"""
+        # if self.root is None:
+        #     return True
+        return self.is_full_helper(self.root)
+
+    def is_full_helper(self, node):
+        """Recursively goes through each node to determine a full tree"""
+        if node is None:
+            return True
+
+        if node.left is None and node.right is None:
+            return True
+
+        if node.left is not None and node.right is not None:
+            return (self.is_full_helper(node.left) and self.is_full_helper(node.right))
+
+        return False
 
     def is_complete(self) -> bool:
         """Determines if the binary tree is complete"""
-        if self.root is None:
-            return True
+        # if self.root is None:
+        #     return True
 
         order = self.in_order_traversal()
         count = 0
@@ -327,7 +340,7 @@ class BST:
         return self.is_complete_helper(self.root, 0, count)
 
     def is_complete_helper(self, node, index, number_nodes):
-        """"""
+        """Recursively goes through each node to determine a complete tree"""
         if node is None:
             return True
 
