@@ -349,9 +349,6 @@ class BST:
 
     def height(self) -> int:
         """Determines the height of the binary tree"""
-        if self.root is None:
-            return -1
-
         return self.height_helper(self.root)
 
     def height_helper(self, node):
@@ -393,10 +390,31 @@ class BST:
         return leaves
 
     def count_unique(self) -> int:
-        """
-        TODO: Write this implementation
-        """
-        return 0
+        """Counts the number of unique nodes in the tree"""
+        unique = Queue()
+        # temp = Queue()
+        in_order = self.in_order_traversal()
+        # print(in_order)
+
+        iterations = 0
+        while in_order.is_empty() is False:
+            temp_val = in_order.dequeue()
+            # print(temp_val)
+            # temp.enqueue(temp_val)
+            if in_order.is_empty() is False:
+                temp_val2 = in_order.dequeue()
+                if temp_val2 != temp_val:
+                    unique.enqueue(temp_val)
+                    in_order.enqueue(temp_val)
+            else:
+                unique.enqueue(temp_val)
+
+        count = 0
+        while unique.is_empty() is False:
+            unique.dequeue()
+            count += 1
+
+        return count
 
 
 # BASIC TESTING - PDF EXAMPLES
