@@ -313,10 +313,30 @@ class BST:
         return True
 
     def is_complete(self) -> bool:
-        """
-        TODO: Write this implementation
-        """
-        return True
+        """Determines if the binary tree is complete"""
+        if self.root is None:
+            return True
+
+        order = self.in_order_traversal()
+        count = 0
+
+        while order.is_empty() is False:
+            order.dequeue()
+            count += 1
+
+        return self.is_complete_helper(self.root, 0, count)
+
+    def is_complete_helper(self, node, index, number_nodes):
+        """"""
+        if node is None:
+            return True
+
+        if index >= number_nodes:
+            return False
+
+        return (self.is_complete_helper(node.left, 2 * index + 1, number_nodes)
+                and self.is_complete_helper(node.right, 2 * index + 2, number_nodes)
+                )
 
     def is_perfect(self) -> bool:
         """
@@ -391,27 +411,41 @@ class BST:
 
     def count_unique(self) -> int:
         """Counts the number of unique nodes in the tree"""
-        unique = Queue()
-        # temp = Queue()
+        unique = Stack()
+        temp = Stack()
         in_order = self.in_order_traversal()
-        # print(in_order)
-
-        iterations = 0
+        in_order_stack = Stack()
         while in_order.is_empty() is False:
-            temp_val = in_order.dequeue()
-            # print(temp_val)
-            # temp.enqueue(temp_val)
-            if in_order.is_empty() is False:
-                temp_val2 = in_order.dequeue()
-                if temp_val2 != temp_val:
-                    unique.enqueue(temp_val)
-                    in_order.enqueue(temp_val)
+            val = in_order.dequeue()
+            in_order_stack.push(val)
+
+        # print(in_order_stack)
+
+        while in_order_stack.is_empty() is False:
+            temp_val = in_order_stack.pop()
+            if in_order_stack.is_empty() is False:
+                temp_val2 = in_order_stack.pop()
+                if temp_val == temp_val2:
+                    temp.push(temp_val)
+                    in_order_stack.push(temp_val2)
+                elif temp.is_empty() is False:
+                    temp_val3 = temp.pop()
+                    if temp_val == temp_val3:
+                        temp.push(temp_val3)
+                        temp.push(temp_val)
+                        in_order_stack.push(temp_val2)
+
+                else:
+                    unique.push(temp_val)
+                    in_order_stack.push(temp_val2)
             else:
-                unique.enqueue(temp_val)
+                unique.push(temp_val)
+
+        # print(unique)
 
         count = 0
         while unique.is_empty() is False:
-            unique.dequeue()
+            unique.pop()
             count += 1
 
         return count
@@ -572,28 +606,27 @@ if __name__ == '__main__':
     print(tree.post_order_traversal())
     print(tree.by_level_traversal())
 
-    # """ Comprehensive example 2 """
-    # print("\nComprehensive example 2")
-    # print("-----------------------")
-    # tree = BST()
-    # header = 'Value   Size  Height   Leaves   Unique   '
-    # header += 'Complete?  Full?    Perfect?'
-    # print(header)
-    # print('-' * len(header))
-    # print(f'N/A   {tree.size():6} {tree.height():7} ',
-    #       f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-    #       f'{str(tree.is_complete()):10}',
-    #       f'{str(tree.is_full()):7} ',
-    #       f'{str(tree.is_perfect())}')
-    #
-    # for value in 'DATA STRUCTURES':
-    #     tree.add(value)
-    #     print(f'{value:5} {tree.size():6} {tree.height():7} ',
-    #           f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-    #           f'{str(tree.is_complete()):10}',
-    #           f'{str(tree.is_full()):7} ',
-    #           f'{str(tree.is_perfect())}')
-    # print('', tree.pre_order_traversal(), tree.in_order_traversal(),
-    #       tree.post_order_traversal(), tree.by_level_traversal(),
-    #       sep='\n')
-    #
+    """ Comprehensive example 2 """
+    print("\nComprehensive example 2")
+    print("-----------------------")
+    tree = BST()
+    header = 'Value   Size  Height   Leaves   Unique   '
+    header += 'Complete?  Full?    Perfect?'
+    print(header)
+    print('-' * len(header))
+    print(f'N/A   {tree.size():6} {tree.height():7} ',
+          f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+          f'{str(tree.is_complete()):10}',
+          f'{str(tree.is_full()):7} ',
+          f'{str(tree.is_perfect())}')
+
+    for value in 'DATA STRUCTURES':
+        tree.add(value)
+        print(f'{value:5} {tree.size():6} {tree.height():7} ',
+              f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+              f'{str(tree.is_complete()):10}',
+              f'{str(tree.is_full()):7} ',
+              f'{str(tree.is_perfect())}')
+    print('', tree.pre_order_traversal(), tree.in_order_traversal(),
+          tree.post_order_traversal(), tree.by_level_traversal(),
+          sep='\n')
