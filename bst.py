@@ -221,10 +221,11 @@ class BST:
             else:
                 return count, None, None
 
-
     def remove(self, value) -> bool:
         """Removes the first instance of the given value in the binary tree"""
         node = self.root
+        if node is None:
+            return False
 
         before = self.in_order_traversal()
         self.remove_helper(node, value)
@@ -244,8 +245,6 @@ class BST:
             return False
 
         return True
-
-
 
     def remove_helper(self, node, value):
         """Recursively goes through binary tree to remove a node"""
@@ -285,7 +284,6 @@ class BST:
             node.right = self.remove_helper(node.right, temp_node.value)
 
         return node
-
 
     def pre_order_traversal(self) -> Queue:
         """Traverses the binary tree in pre-order"""
