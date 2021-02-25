@@ -189,7 +189,7 @@ class BST:
         address = (self.remove_first_helper(node, count))
         count = address[0]
         node_right = address[1]
-        node_left = address[2]
+        node_right_left = address[2]
 
         if count == 0:
             self.root.value = node.value
@@ -200,11 +200,15 @@ class BST:
         for i in range(count - 1):
             node = node.left
 
-        if node_right is not None:
+        if node_right is not None and node_right_left is not None:
+            node.left = node_right_left
+            node_right_left.right = node_right
+
+        elif node_right is not None:
             node.left = node_right
-            node_right.left = node_left
-        elif node_left is not None:
-            node.left = node_left
+            # node_right.left = node_left
+        # elif node_left is not None:
+        #     node.left = node_left
 
         return True
 
@@ -217,9 +221,12 @@ class BST:
         if node.left is None:
             if node.right is not None:
                 self.root.value = node.value
-                return count, node.right, node.left
+                node_right = node.right
+                if node_right.left is not None:
+                    return count, node_right, node_right.left
+                return count, node_right, node.left
             else:
-                return count, node.right, node.left
+                return count, None, None
 
     def remove(self, value) -> bool:
         """Removes the first instance of the given value in the binary tree"""
@@ -271,15 +278,7 @@ class BST:
                 node = None
                 return temp_node
 
-            #     temp_node2 = node.right
-            #     temp_node = node.right
-            # else:
-            #     temp_node2 = node
-
             temp_node = self.min_val(node.right)
-            # while temp_node2.left is not None:
-            #     temp_node2 = temp_node2.left
-            #     temp_node = temp_node2
 
             node.value = temp_node.value
             node.right = self.remove_helper(node.right, temp_node.value)
