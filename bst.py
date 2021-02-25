@@ -170,27 +170,49 @@ class BST:
 
     def remove_first(self) -> bool:
         """Removes the root node from the tree"""
-        pass
-        # values = Queue()
-        # current = self.root
-        # if current.right is None and current.left is not None:
-        #     self.root = current.left
-        #     return True
-        #
-        # address = 0
-        # current = current.right
-        #
-        # while current.left is not None:  # runs until the value is found
-        #     address += 1
-        #     values.enqueue(current.value)
-        #     current = current.left
-        #
-        # print(values)
-        #
-        # delete = self.root.right
-        # for i in range(address):
-        #     delete = delete.left
-        # return delete
+        node = self.root
+        if self.root is None:
+            return False
+        if node.right is None and node.left is None:
+            self.root = None
+            return True
+
+        if node.left is None and node.right is not None:
+            self.root = node.right
+            return True
+        elif node.right is None and node.left is not None:
+            self.root = node.left
+            return True
+
+        node = node.right
+        count = 0
+        address = (self.remove_first_helper(node, count))
+        count = address[0]
+        node_right = address[1]
+
+        if count == 0:
+            self.root.right = None
+            return True
+
+        node = self.root.right
+        for i in range(count - 1):
+            node = node.left
+        node.left = node_right
+        return True
+
+    def remove_first_helper(self, node, count):
+        """Helps recursively go through the tree to replace root node"""
+        if node.left is not None:
+            count += 1
+            return self.remove_first_helper(node.left, count)
+
+        if node.left is None:
+            if node.right is not None:
+                self.root.value = node.value
+                return count, node.right
+            else:
+                return count, None
+
 
     def remove(self, value) -> bool:
         """Removes the first instance of the given value in the binary tree"""
@@ -369,7 +391,8 @@ class BST:
         if node.left is None or node.right is None:
             return False
 
-        return self.is_perfect_helper(node.left, depth, level + 1) and self.is_perfect_helper(node.right, depth, level + 1)
+        return self.is_perfect_helper(node.left, depth, level + 1) and self.is_perfect_helper(node.right, depth,
+                                                                                              level + 1)
 
     def size(self) -> int:
         """Returns the total number of nodes in the tree"""
@@ -563,30 +586,30 @@ if __name__ == '__main__':
     # print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
 
-    # """ remove_first() example 1 """
-    # print("\nPDF - method remove_first() example 1")
-    # print("-------------------------------------")
-    # tree = BST([10, 15, 5])
-    # print(tree.remove_first())
-    # print(tree)
+    """ remove_first() example 1 """
+    print("\nPDF - method remove_first() example 1")
+    print("-------------------------------------")
+    tree = BST([10, 15, 5])
+    print(tree.remove_first())
+    print(tree)
 
-    # """ remove_first() example 2 """
-    # print("\nPDF - method remove_first() example 2")
-    # print("-------------------------------------")
-    # tree = BST([10, 20, 5, 15, 17, 7])
-    # print(tree.remove_first())
-    # print(tree)
+    """ remove_first() example 2 """
+    print("\nPDF - method remove_first() example 2")
+    print("-------------------------------------")
+    tree = BST([10, 20, 5, 15, 17, 7])
+    print(tree.remove_first())
+    print(tree)
 
-    # """ remove_first() example 3 """
-    # print("\nPDF - method remove_first() example 3")
-    # print("-------------------------------------")
-    # tree = BST([10, 10, -1, 5, -1])
-    # print(tree.remove_first(), tree)
-    # print(tree.remove_first(), tree)
-    # print(tree.remove_first(), tree)
-    # print(tree.remove_first(), tree)
-    # print(tree.remove_first(), tree)
-    # print(tree.remove_first(), tree)
+    """ remove_first() example 3 """
+    print("\nPDF - method remove_first() example 3")
+    print("-------------------------------------")
+    tree = BST([10, 10, -1, 5, -1])
+    print(tree.remove_first(), tree)
+    print(tree.remove_first(), tree)
+    print(tree.remove_first(), tree)
+    print(tree.remove_first(), tree)
+    print(tree.remove_first(), tree)
+    print(tree.remove_first(), tree)
 
     # """ Traversal methods example 1 """
     # print("\nPDF - traversal methods example 1")
@@ -606,54 +629,54 @@ if __name__ == '__main__':
     # print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
 
-    """ Comprehensive example 1 """
-    print("\nComprehensive example 1")
-    print("-----------------------")
-    tree = BST()
-    header = 'Value   Size  Height   Leaves   Unique   '
-    header += 'Complete?  Full?    Perfect?'
-    print(header)
-    print('-' * len(header))
-    print(f'  N/A {tree.size():6} {tree.height():7} ',
-          f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-          f'{str(tree.is_complete()):10}',
-          f'{str(tree.is_full()):7} ',
-          f'{str(tree.is_perfect())}')
-
-    for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
-        tree.add(value)
-        print(f'{value:5} {tree.size():6} {tree.height():7} ',
-              f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-              f'{str(tree.is_complete()):10}',
-              f'{str(tree.is_full()):7} ',
-              f'{str(tree.is_perfect())}')
-    print()
-    print(tree.pre_order_traversal())
-    print(tree.in_order_traversal())
-    print(tree.post_order_traversal())
-    print(tree.by_level_traversal())
-
-    """ Comprehensive example 2 """
-    print("\nComprehensive example 2")
-    print("-----------------------")
-    tree = BST()
-    header = 'Value   Size  Height   Leaves   Unique   '
-    header += 'Complete?  Full?    Perfect?'
-    print(header)
-    print('-' * len(header))
-    print(f'N/A   {tree.size():6} {tree.height():7} ',
-          f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-          f'{str(tree.is_complete()):10}',
-          f'{str(tree.is_full()):7} ',
-          f'{str(tree.is_perfect())}')
-
-    for value in 'DATA STRUCTURES':
-        tree.add(value)
-        print(f'{value:5} {tree.size():6} {tree.height():7} ',
-              f'{tree.count_leaves():7} {tree.count_unique():8}  ',
-              f'{str(tree.is_complete()):10}',
-              f'{str(tree.is_full()):7} ',
-              f'{str(tree.is_perfect())}')
-    print('', tree.pre_order_traversal(), tree.in_order_traversal(),
-          tree.post_order_traversal(), tree.by_level_traversal(),
-          sep='\n')
+    # """ Comprehensive example 1 """
+    # print("\nComprehensive example 1")
+    # print("-----------------------")
+    # tree = BST()
+    # header = 'Value   Size  Height   Leaves   Unique   '
+    # header += 'Complete?  Full?    Perfect?'
+    # print(header)
+    # print('-' * len(header))
+    # print(f'  N/A {tree.size():6} {tree.height():7} ',
+    #       f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+    #       f'{str(tree.is_complete()):10}',
+    #       f'{str(tree.is_full()):7} ',
+    #       f'{str(tree.is_perfect())}')
+    #
+    # for value in [10, 5, 3, 15, 12, 8, 20, 1, 4, 9, 7]:
+    #     tree.add(value)
+    #     print(f'{value:5} {tree.size():6} {tree.height():7} ',
+    #           f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+    #           f'{str(tree.is_complete()):10}',
+    #           f'{str(tree.is_full()):7} ',
+    #           f'{str(tree.is_perfect())}')
+    # print()
+    # print(tree.pre_order_traversal())
+    # print(tree.in_order_traversal())
+    # print(tree.post_order_traversal())
+    # print(tree.by_level_traversal())
+    #
+    # """ Comprehensive example 2 """
+    # print("\nComprehensive example 2")
+    # print("-----------------------")
+    # tree = BST()
+    # header = 'Value   Size  Height   Leaves   Unique   '
+    # header += 'Complete?  Full?    Perfect?'
+    # print(header)
+    # print('-' * len(header))
+    # print(f'N/A   {tree.size():6} {tree.height():7} ',
+    #       f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+    #       f'{str(tree.is_complete()):10}',
+    #       f'{str(tree.is_full()):7} ',
+    #       f'{str(tree.is_perfect())}')
+    #
+    # for value in 'DATA STRUCTURES':
+    #     tree.add(value)
+    #     print(f'{value:5} {tree.size():6} {tree.height():7} ',
+    #           f'{tree.count_leaves():7} {tree.count_unique():8}  ',
+    #           f'{str(tree.is_complete()):10}',
+    #           f'{str(tree.is_full()):7} ',
+    #           f'{str(tree.is_perfect())}')
+    # print('', tree.pre_order_traversal(), tree.in_order_traversal(),
+    #       tree.post_order_traversal(), tree.by_level_traversal(),
+    #       sep='\n')
