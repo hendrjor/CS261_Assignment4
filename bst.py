@@ -224,15 +224,68 @@ class BST:
 
     def remove(self, value) -> bool:
         """Removes the first instance of the given value in the binary tree"""
-        pass
-        # current = self.root
-        # while current is not None:  # runs until the value is found
-        #     if value < current.value:
-        #         current = current.left
-        #     elif value >= current.value:
-        #         if current.value == value:  # if the value is found, return True
-        #             return True
-        #         current = current.right
+        node = self.root
+
+        before = self.in_order_traversal()
+        self.remove_helper(node, value)
+        after = self.in_order_traversal()
+        if before.is_empty() is True and after.is_empty() is True:
+            return True
+
+        before_count = 0
+        after_count = 0
+        while before.is_empty() is False:
+            before.dequeue()
+            before_count += 1
+        while after.is_empty() is False:
+            after.dequeue()
+            after_count += 1
+        if before_count == after_count:
+            return False
+
+        return True
+
+
+
+    def remove_helper(self, node, value):
+        """Recursively goes through binary tree to remove a node"""
+
+        if node is None:
+            return node
+
+        if value < node.value:  # moves left if the value is less than the current node
+            node.left = self.remove_helper(node.left, value)
+
+        elif value > node.value:  # moves right if the value is greater than the current node
+            node.right = self.remove_helper(node.right, value)
+
+        else:
+            # If the node is found and only has a single child
+            if node.left is None:
+                temp_node = node.right
+                node = None
+                return temp_node
+            # If the node is found and only has a single child
+            elif node.right is None:
+                temp_node = node.left
+                node = None
+                return temp_node
+
+            if node.right is not None:
+                temp_node2 = node.right
+            else:
+                temp_node2 = node
+
+            temp_node = node
+            while temp_node2.left is not None:
+                temp_node2 = temp_node2.left
+                temp_node = temp_node2
+
+            node.value = temp_node.value
+            node.right = self.remove_helper(node.right, temp_node.value)
+
+        return node
+
 
     def pre_order_traversal(self) -> Queue:
         """Traverses the binary tree in pre-order"""
@@ -566,13 +619,13 @@ if __name__ == '__main__':
     # print(tree.get_first())
     # print(tree)
 
-    # """ remove() example 1 """
-    # print("\nPDF - method remove() example 1")
-    # print("-------------------------------")
-    # tree = BST([10, 5, 15])
-    # print(tree.remove(7))
-    # print(tree.remove(15))
-    # print(tree.remove(15))
+    """ remove() example 1 """
+    print("\nPDF - method remove() example 1")
+    print("-------------------------------")
+    tree = BST([10, 5, 15])
+    print(tree.remove(7))
+    print(tree.remove(15))
+    print(tree.remove(15))
     #
     # """ remove() example 2 """
     # print("\nPDF - method remove() example 2")
@@ -593,31 +646,31 @@ if __name__ == '__main__':
     # print(tree.in_order_traversal())
     # print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
+    #
+    # """ remove_first() example 1 """
+    # print("\nPDF - method remove_first() example 1")
+    # print("-------------------------------------")
+    # tree = BST([10, 15, 5])
+    # print(tree.remove_first())
+    # print(tree)
+    #
+    # """ remove_first() example 2 """
+    # print("\nPDF - method remove_first() example 2")
+    # print("-------------------------------------")
+    # tree = BST([10, 20, 5, 15, 17, 7])
+    # print(tree.remove_first())
+    # print(tree)
 
-    """ remove_first() example 1 """
-    print("\nPDF - method remove_first() example 1")
-    print("-------------------------------------")
-    tree = BST([10, 15, 5])
-    print(tree.remove_first())
-    print(tree)
-
-    """ remove_first() example 2 """
-    print("\nPDF - method remove_first() example 2")
-    print("-------------------------------------")
-    tree = BST([10, 20, 5, 15, 17, 7])
-    print(tree.remove_first())
-    print(tree)
-
-    """ remove_first() example 3 """
-    print("\nPDF - method remove_first() example 3")
-    print("-------------------------------------")
-    tree = BST([10, 10, -1, 5, -1])
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
+    # """ remove_first() example 3 """
+    # print("\nPDF - method remove_first() example 3")
+    # print("-------------------------------------")
+    # tree = BST([10, 10, -1, 5, -1])
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
 
     # """ Traversal methods example 1 """
     # print("\nPDF - traversal methods example 1")
