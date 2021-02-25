@@ -192,6 +192,7 @@ class BST:
         node_left = address[2]
 
         if count == 0:
+            self.root.value = node.value
             self.root.right = None
             return True
 
@@ -204,6 +205,7 @@ class BST:
             node_right.left = node_left
         elif node_left is not None:
             node.left = node_left
+
         return True
 
     def remove_first_helper(self, node, count):
