@@ -233,7 +233,7 @@ class BST:
         if before.is_empty() is True and after.is_empty() is True:
             return True
 
-        before_count = 0
+        before_count = 0  # determine the number of nodes
         after_count = 0
         while before.is_empty() is False:
             before.dequeue()
@@ -275,7 +275,7 @@ class BST:
             else:
                 temp_node2 = node
 
-            temp_node = node
+            temp_node = temp_node2
             while temp_node2.left is not None:
                 temp_node2 = temp_node2.left
                 temp_node = temp_node2
@@ -624,27 +624,27 @@ if __name__ == '__main__':
     print(tree.remove(7))
     print(tree.remove(15))
     print(tree.remove(15))
-    #
-    # """ remove() example 2 """
-    # print("\nPDF - method remove() example 2")
-    # print("-------------------------------")
-    # tree = BST([10, 20, 5, 15, 17, 7, 12])
-    # print(tree.remove(20))
-    # print(tree)
-    #
-    # """ remove() example 3 """
-    # print("\nPDF - method remove() example 3")
-    # print("-------------------------------")
-    # tree = BST([10, 5, 20, 18, 12, 7, 27, 22, 18, 24, 22, 30])
-    # print(tree.remove(20))
-    # print(tree)
-    # # comment out the following lines
-    # # if you have not yet implemented traversal methods
-    # print(tree.pre_order_traversal())
-    # print(tree.in_order_traversal())
-    # print(tree.post_order_traversal())
-    # print(tree.by_level_traversal())
-    #
+
+    """ remove() example 2 """
+    print("\nPDF - method remove() example 2")
+    print("-------------------------------")
+    tree = BST([10, 20, 5, 15, 17, 7, 12])
+    print(tree.remove(20))
+    print(tree)
+
+    """ remove() example 3 """
+    print("\nPDF - method remove() example 3")
+    print("-------------------------------")
+    tree = BST([10, 5, 20, 18, 12, 7, 27, 22, 18, 24, 22, 30])
+    print(tree.remove(20))
+    print(tree)
+    # comment out the following lines
+    # if you have not yet implemented traversal methods
+    print(tree.pre_order_traversal())
+    print(tree.in_order_traversal())
+    print(tree.post_order_traversal())
+    print(tree.by_level_traversal())
+
     # """ remove_first() example 1 """
     # print("\nPDF - method remove_first() example 1")
     # print("-------------------------------------")
