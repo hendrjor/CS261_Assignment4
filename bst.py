@@ -198,8 +198,12 @@ class BST:
         node = self.root.right
         for i in range(count - 1):
             node = node.left
-        node.left = node_right
-        node_right.left = node_left
+
+        if node_right is not None:
+            node.left = node_right
+            node_right.left = node_left
+        elif node_left is not None:
+            node.left = node_left
         return True
 
     def remove_first_helper(self, node, count):
