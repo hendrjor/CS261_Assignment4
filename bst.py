@@ -200,6 +200,8 @@ class BST:
         for i in range(count - 1):
             node = node.left
 
+        print(node.value)
+
         if node_right is not None and node_right_left is not None:
             node.left = node_right_left
             node_right_left.right = node_right
@@ -207,7 +209,7 @@ class BST:
 
         elif node_right is not None:
             node.left = node_right
-            # node_right.left = node_left
+            # node_right.left = None
         # elif node_left is not None:
         #     node.left = node_left
 
