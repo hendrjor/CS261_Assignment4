@@ -231,6 +231,8 @@ class BST:
     def remove(self, value) -> bool:
         """Removes the first instance of the given value in the binary tree"""
         node = self.root
+        if node is None:
+            return node
         if node.value == value:
             self.remove_first()
             return True
