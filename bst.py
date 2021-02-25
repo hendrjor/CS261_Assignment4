@@ -270,19 +270,26 @@ class BST:
                 node = None
                 return temp_node
 
-            if node.right is not None:
-                temp_node2 = node.right
-            else:
-                temp_node2 = node
+            # if node.right is not None:
+            #     temp_node2 = node.right
+            #     temp_node = node.right
+            # else:
+            #     temp_node2 = node
 
-            temp_node = temp_node2
-            while temp_node2.left is not None:
-                temp_node2 = temp_node2.left
-                temp_node = temp_node2
+            temp_node = self.min_val(node.right)
+            # while temp_node2.left is not None:
+            #     temp_node2 = temp_node2.left
+            #     temp_node = temp_node2
 
             node.value = temp_node.value
             node.right = self.remove_helper(node.right, temp_node.value)
 
+        return node
+
+    def min_val(self, node):
+        """Finds the smallest value in a subtree"""
+        while node.left is not None:
+            node = node.left
         return node
 
     def pre_order_traversal(self) -> Queue:
