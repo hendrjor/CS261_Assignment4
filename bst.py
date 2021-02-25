@@ -200,8 +200,6 @@ class BST:
         for i in range(count - 1):
             node = node.left
 
-        print(node.value)
-
         if node_right is not None and node_right_left is not None:
             node.left = node_right_left
             node_right_left.right = node_right
@@ -209,9 +207,6 @@ class BST:
 
         elif node_right is not None:
             node.left = node_right
-            # node_right.left = None
-        # elif node_left is not None:
-        #     node.left = node_left
 
         return True
 
@@ -539,8 +534,6 @@ class BST:
             val = in_order.dequeue()
             in_order_stack.push(val)
 
-        # print(in_order_stack)
-
         while in_order_stack.is_empty() is False:
             temp_val = in_order_stack.pop()
             if in_order_stack.is_empty() is False:
@@ -561,8 +554,6 @@ class BST:
             else:
                 unique.push(temp_val)
 
-        # print(unique)
-
         count = 0
         while unique.is_empty() is False:
             unique.pop()
@@ -573,7 +564,7 @@ class BST:
 
 # BASIC TESTING - PDF EXAMPLES
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # """ add() example #1 """
     # print("\nPDF - method add() example 1")
     # print("----------------------------")
@@ -656,30 +647,30 @@ if __name__ == '__main__':
     # print(tree.post_order_traversal())
     # print(tree.by_level_traversal())
 
-    """ remove_first() example 1 """
-    print("\nPDF - method remove_first() example 1")
-    print("-------------------------------------")
-    tree = BST([10, 15, 5])
-    print(tree.remove_first())
-    print(tree)
-
-    """ remove_first() example 2 """
-    print("\nPDF - method remove_first() example 2")
-    print("-------------------------------------")
-    tree = BST([10, 20, 5, 15, 17, 7])
-    print(tree.remove_first())
-    print(tree)
-
-    """ remove_first() example 3 """
-    print("\nPDF - method remove_first() example 3")
-    print("-------------------------------------")
-    tree = BST([10, 10, -1, 5, -1])
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
-    print(tree.remove_first(), tree)
+    # """ remove_first() example 1 """
+    # print("\nPDF - method remove_first() example 1")
+    # print("-------------------------------------")
+    # tree = BST([10, 15, 5])
+    # print(tree.remove_first())
+    # print(tree)
+    #
+    # """ remove_first() example 2 """
+    # print("\nPDF - method remove_first() example 2")
+    # print("-------------------------------------")
+    # tree = BST([10, 20, 5, 15, 17, 7])
+    # print(tree.remove_first())
+    # print(tree)
+    #
+    # """ remove_first() example 3 """
+    # print("\nPDF - method remove_first() example 3")
+    # print("-------------------------------------")
+    # tree = BST([10, 10, -1, 5, -1])
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
+    # print(tree.remove_first(), tree)
 
     # """ Traversal methods example 1 """
     # print("\nPDF - traversal methods example 1")
