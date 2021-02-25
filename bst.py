@@ -224,8 +224,9 @@ class BST:
     def remove(self, value) -> bool:
         """Removes the first instance of the given value in the binary tree"""
         node = self.root
-        if node is None:
-            return False
+        if node.value == value:
+            self.remove_first()
+            return True
 
         before = self.in_order_traversal()
         self.remove_helper(node, value)
@@ -252,6 +253,7 @@ class BST:
         if node is None:
             return node
 
+
         if value < node.value:  # moves left if the value is less than the current node
             node.left = self.remove_helper(node.left, value)
 
@@ -270,7 +272,6 @@ class BST:
                 node = None
                 return temp_node
 
-            # if node.right is not None:
             #     temp_node2 = node.right
             #     temp_node = node.right
             # else:
